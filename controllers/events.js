@@ -33,8 +33,9 @@ const actualizarEvento = async (req, res = response) => {
   const uid = req.uid;
 
   try {
+    let evento;
     try {
-      const evento = await Evento.findById(eventoId);
+      evento = await Evento.findById(eventoId);
     } catch (error) {
       return res.status(404).json({
         ok: false,
@@ -55,13 +56,13 @@ const actualizarEvento = async (req, res = response) => {
       { new: true }
     );
     return res.json({
-      ok: false,
+      ok: true,
       evento: eventoActualizado,
     });
   } catch (error) {
     res.status(500).json({
       ok: false,
-      meesage: 'Hable con el administrador...',
+      meesage: 'Hable con el administrador para actualizar...',
     });
   }
 };
@@ -71,8 +72,9 @@ const eliminarEvento = async (req, res = response) => {
   const uid = req.uid;
 
   try {
+    let evento;
     try {
-      const evento = await Evento.findById(eventoId);
+      evento = await Evento.findById(eventoId);
     } catch (error) {
       res.status(404).json({
         ok: false,
@@ -89,7 +91,7 @@ const eliminarEvento = async (req, res = response) => {
 
     await Evento.findByIdAndDelete(eventoId);
     res.json({
-      ok: false,
+      ok: true,
     });
   } catch (error) {
     res.status(500).json({
